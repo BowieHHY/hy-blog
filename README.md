@@ -1,1 +1,3 @@
-## hy-blog
+# hy-blog
+
+> An awesome project.
