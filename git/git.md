@@ -316,7 +316,7 @@ git checkout HEAD~^2~2
 
 
 
-#### 遠程分支
+#### 遠程分支 
 
 - 克隆倉庫
 
@@ -532,6 +532,8 @@ git fetch origin :bar
   ```js
   git branch -f branchname
   ```
+
+- 后续待更新
 
 
 
