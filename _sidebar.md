@@ -3,7 +3,8 @@
 * [:cn:](/zh-cn/)
 * javascript
   * [websocket](/js/WebSocket.md)
-* vue 
+* vue
+  * [vscode-vue-snippet](/vue/vscode-vue-snippet.md)
 * react
 * 构建工具
 * git 
