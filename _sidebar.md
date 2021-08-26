@@ -11,4 +11,5 @@
   * [git](/git/git.md)
 * product
   * [菲兹定律](/product/Fitts-Law.md)
-
+* mongodb
+  * [mongodb链接](/mongodb/Fitts-Law.md)
