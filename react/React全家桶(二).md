@@ -190,7 +190,7 @@ saveInput = ()=>{
 <input ref={ this.saveInput } type='text' placeholder='点击按钮提示数据' />
 ```
 
-**createRef api **
+**createRef api**
 
 > React.createRef 调用后可以返回一个容器，该容器可以存储被ref 所标识的节点
 >
