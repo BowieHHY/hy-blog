@@ -13,4 +13,4 @@
 * product
   * [菲兹定律](/product/Fitts-Law.md)
 * mongodb
-  * [mongodb链接](/mongodb/Fitts-Law.md)
+  * [mongodb链接](/mongodb/连接MongoDB数据库.md)
