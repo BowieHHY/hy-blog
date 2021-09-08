@@ -21,7 +21,7 @@ class Person extends React.Component{
 ReactDOM.render(<Person name='tom' age="18" />,document.getElementById('test'))
 ```
 
-**简写 : **
+**简写 :**
 
 ```react
 const p = {name:'xxx',age:18}
