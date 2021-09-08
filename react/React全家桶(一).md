@@ -37,9 +37,9 @@
 </script>
 ```
 
-⚠️以下很多 都忽略掉`<script>`中的引入
+⚠️ 以下很多 都忽略掉`<script>`中的引入
 
-🙋🏼‍♀️但是如果要`<h1><span>hello</span></h1>`呢？
+🙋🏼‍♀️ 但是如果要`<h1><span>hello</span></h1>`呢？
 
 不使用jsx的情况下：
 
@@ -59,7 +59,7 @@ function hello() {
 }
 ```
 
-**👉 👉可知：`jsx` 实际上是`React.createElement(...)` 的语法糖**
+**👉 👉 可知：`jsx` 实际上是`React.createElement(...)` 的语法糖**
 
 
 
@@ -109,7 +109,7 @@ const VDOM = (
 )
 ```
 
-⚠️ 什么是表达式 什么是 js语句
+⚠️  什么是表达式 什么是 js语句
 
 1. 表达式会产生一个值，可以放在任何 一个需要值的地方
 
@@ -156,7 +156,7 @@ const VDOM = (
 
   > 报错：
   >
-  > ❌ Warning：Functions are not valid as a React child.
+  > ❌  Warning：Functions are not valid as a React child.
 
   ```react
   function Demo(){
@@ -213,7 +213,7 @@ const VDOM = (
   s1.speak()
   ```
 
-  > speak()中的 this 就是实例 ❌
+  > speak()中的 this 就是实例  ❌
 
   ```react
   // 类组件
@@ -234,11 +234,11 @@ const VDOM = (
   ReactDOM.render(<MyComponent />,.....)
   ```
 
-  🤔 MyComponent 中 render 是放在哪？ MyComponent的原型对象上 供实例使用
+  🤔  MyComponent 中 render 是放在哪？ MyComponent的原型对象上 供实例使用
 
-  🤔 实例在哪？React 在渲染的时候帮你new了一个
+  🤔  实例在哪？React 在渲染的时候帮你new了一个
 
-  🤔 MyComponent 的 this 是 MyComponent **组件实例对象**
+  🤔  MyComponent 的 this 是 MyComponent **组件实例对象**
 
   
 
@@ -286,28 +286,28 @@ ReactDOM.render(<Weather />,document.getElementById('test'))
 
 ```
 
-⚠️ onClick 只是指定好函数 赋值给onClick
+⚠️  onClick 只是指定好函数 赋值给onClick
 
-🤔？setState 是替换还是合并？
+🤔  ？setState 是替换还是合并？
 
 答：合并
 
-🤔？ 构造器调用几次？
+🤔  ？ 构造器调用几次？
 
 答：1次
 
-🤔？render调用几次？
+🤔  ？render调用几次？
 
 答：1+n次 n是状态更新的次数
 
-🤔️ ？为什么 `console.log(this.state.isHot)`会报错？？？
+🤔️  ？为什么 `console.log(this.state.isHot)`会报错？？？
 
 ```
 	 ☑️  通过Weather实例调用changeWeather(), changeWeather中的this就是Weather实例
 ​	 ☑️   里面的this是undefined 因为只有通过Weather实例调用...(参看第一条)
 ​	 ☑️  changeWeather 不是通过实例调用的
 
-🌰：
+🌰  ：
 study 中打印 this
 const p1 = new Person('tom',18)
 p1.study() //通过实例调用
@@ -321,7 +321,7 @@ x() // 直接调用 undefined
 
 > 类中所有的局部方法 都开启了严格模式
 
-**❕答：**
+**❕  答：**
 **由于changeWeather是作为onClick的回调,所以不是通过实例	调用的，是直接调用；类中的方法默认开启了局部的严格模式，所	以changeWeather中的this为undefined**
 
 ------
