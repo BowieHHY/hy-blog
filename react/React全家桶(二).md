@@ -36,7 +36,7 @@ ReactDOM.render(<Person {...p} />,document.getElementById('test'))
 ReactDOM.render(<Person name='tom' age={18} />,document.getElementById('test'))
 ```
 
-**标签属性限制 propTypes **
+**标签属性限制 propTypes**
 
 - 类型限制
 - 必要性限制
