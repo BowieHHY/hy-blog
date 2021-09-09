@@ -209,3 +209,112 @@ class Demo extends React.Component{
 <input ref={ this.myRef } type='text' placeholder='点击按钮提示数据' />
 ```
 
+**事件处理**
+
+- 通过onXxx 属性指定事件处理函数（注意大小写）
+  - React 使用的是自定义（合成）事件，而不是使用的原生DOM事件   -------为了更好的兼容性
+  - React 中的事件是通过事件委托方式处理的（委托给组件最外层的元素）-------为了高效
+
+- 通过event.target得到发生事件的DOM元素对象（不过度使用ref
+
+  ）
+
+**收集表单数据**
+
+```react
+class Login extend React.Component{
+  
+  handleLogin = (event) => {
+    // 阻止表单提交
+    event.preventDefalut()；
+    const {username,password} = this
+    alert(`username: ${username.value},password:${password.value}`)
+  }
+  
+  render(){
+    return (
+    	<form action='http://www.baidu.com' onSubmit={this.handleLogin}>
+      	username : <input ref={c=>this.username = c } type='text' name='username' />
+        password : <input ref={c=>this.password = c} type='password' name='password' />
+        <button>login</button>
+      </form>
+    )
+  }
+}
+ReactDOM.render(<Login />,document.getElementById('test'))
+```
+
+🤔  受控组件和非受控组件的区别？
+
+- 非受控组件
+
+  现用现取(如上 👆 )
+
+- 受控组件
+
+  随着输入拿到输入值，存取状态（有点像vue的双向数据绑定）
+
+  不需要使用 ref
+
+  ```react
+  state = {
+    username:''
+  }
+  saveUsername = (event)=>{
+    ...
+    alert(event.target.value)
+    this.setState({
+      username: event.target.value
+    })
+  }
+  <input onChange={this.saveUsername} type='text' name='username' />
+  ```
+
+  
+
+##### 补充 ： 高阶函数 & 函数柯里化
+
+简化👆代码：
+
+```react
+saveFormData(dataType){
+  return (event)=>{ // 返回值不是undefined
+    this.setState({
+      [dataType]:event.target.value
+    })
+  }
+}
+
+// error 这是把saveFormData方法的返回值 给onChange, 而返回的是undefined (在saveFormData不返回东西的情况下)
+username : <input onChange={this.saveFormData('username')}  type='text' name='username' />
+```
+
+- 高阶函数
+
+  如果一个函数符合下面2个规范中的任何一个，那该函数就是高阶函数
+
+  - 若 A 函数，接收的参数是一个函数，那么 A 就可以称之为高阶函数
+  - 那么 A 就可以称之为高阶函数若 A 函数，调用的返回值依然是一个函数
+  - 常见：promise 、setTimeout 、 arr.map 等
+
+- 函数的柯里化： 通过函数调用继续返回函数的方式，实现多次接受参数最后统一出的函数编码形式
+
+💡 tips : 可以折叠代码
+
+```react
+//#region
+	/*
+	*/
+//#endregion
+```
+
+还有一种简化：
+
+```react
+saveFormData(dataType,value){
+ ...
+}
+
+username : <input onChange={event=>this.saveFormData('username',event.target.value)}  type='text' name='username' />
+```
+
