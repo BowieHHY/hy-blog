@@ -11,7 +11,7 @@
   * [React全家桶(三)](/react/React全家桶(三).md)
   * [React全家桶(四)](/react/React全家桶(四).md)
 * 构建工具
-* git 
+* git相关
   * [git](/git/git.md)
 * product
   * [菲兹定律](/product/Fitts-Law.md)
