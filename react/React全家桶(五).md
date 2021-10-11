@@ -354,4 +354,35 @@ return (
 
 - 方法三 state参数
 
+  ```react
+  {/** 1. 向路由组件传递params参数 **/}
+  <link to={
+      {
+        pathname:'/home/message/detail',
+        state:{
+          id:msgObj.id,
+          title:msgObj.title
+    		}
+      }
+    }>{msgObj.title}</link>
+  {/** 2. 正常注册路由 **/}
+  <Route path='/home/message/detail' component={Detail} />
   
+  /***Detail***/
+  {/** 3. this.props.location.state中接收 **/}
+  const {id,title} = this.props.location.state
+  const findContent = DetailData.find(detail=>{
+    return detail.id === id
+  })
+  ```
+
+  刷新也不会丢失，BrowserRouter 一直在维护history，history对象一直保存着state
+
+  把缓存浏览器历史记录都清掉，会报错 this.props.location.state 为undefined
+
+  ```react
+  const {id,title} = this.props.location.state || {}
+  const findContent = DetailData.find(detail=>{
+    return detail.id === id
+  }) ||{}
+  ```
