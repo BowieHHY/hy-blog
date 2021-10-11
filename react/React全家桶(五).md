@@ -136,7 +136,7 @@ app.js:
 ]
 ```
 
-- NavLink 可以实现路由链接的高亮，通过activeClassName指定样式名
+- `NavLink` 可以实现路由链接的高亮，通过`activeClassName`指定样式名
 - 标签体内容是一个特殊的标签属性
 - 通过`this.props.children`可以获取标签体内容
 
@@ -182,7 +182,7 @@ switch 匹配一个往下就不匹配了（单一匹配）
 
 - 如果请求不到资源，就把public下的index.html文件返回给你
 
-  一开始就是访问index.html,里面引入了bootstrap.css; 但是刷新之后会重新请求，意思就是**一刷新** 找不到 localhost:3000/css/bootstrap.css 而是去请求localhost:3000/xxx/css/bootstrap.css
+  一开始就是访问index.html,里面引入了bootstrap.css; 但是刷新之后会重新请求，意思就是**一刷新** 找不到 `localhost:3000/css/bootstrap.css` 而是去请求`localhost:3000/xxx/css/bootstrap.css`
 
 - 解决
 
@@ -213,3 +213,145 @@ switch 匹配一个往下就不匹配了（单一匹配）
     ```
 
 **路由的模糊匹配和严格匹配**
+
+能匹配
+
+```react
+<Link to='/home/a/b'></Link>
+<Route path='/home' component={Home}></Route>
+```
+
+不能匹配
+
+```react
+<Link to='/home'></Link>
+<Route path='/home/a/b' component={Home}></Route>
+```
+
+精准匹配
+
+```react
+// <Link to='/home/a/b'></Link> //不行
+<Link to='/home'></Link>
+<Route exact={true} path='/home' component={Home}></Route>
+```
+
+- 默认使用的是模糊匹配 ：【输入的路径】必须包含要【匹配的路径】且顺序要一致
+- 开启严格匹配：<Route exact={true} >
+- 严格匹配不要随便开启，有时候开启会导致无法继续匹配二级路由
+
+**Redirect的使用**
+
+```react
+import { Redirect } from 'react-router-dom'
+
+...
+<Switch>
+  <Route path='/home/a/b' component={Home}></Route>
+   {/** 放在最后 兜底 **/}
+  <Redirect tp='/about' />
+</Switch>
+
+```
+
+**嵌套路由**
+
+```
+-Home
+​	-News
+​	-Messages
+```
+
+组册子路由的时候要写上父路由的名称
+
+```react
+{/** no 会匹配到redirect **/}
+{/** <Link to='news'></Link> **/}
+<Link to='/home/news'></Link>
+<link to='home/messages'></link>
+
+<Route path='/home/news' component={News}></Route>
+<Route path='/home/messages' component={Messages}></Route>
+```
+
+缺点：当开启严格匹配的时候 home组件下的子路由失效
+
+**向路由组件传递params参数**
+
+![image-20211011085633337](/Users/h1/Library/Application Support/typora-user-images/image-20211011085633337.png)
+
+如何实现上图的效果？(Message的信息传给Detail)
+
+```react
+{/**Message**/}
+...
+return (
+	<div>
+  	<ul>
+    	{
+        messagesArr.map(msgObj=>{
+          return (
+          	<li key={msgObj.id}>
+            	<Link to="/home/message/detail">{msgObj.title}</Link>
+            </li>
+          )
+        })
+      }
+    </ul>
+    <hr />
+    <Route path='/home/message/detail' component={Detail} />
+  </div>
+)
+...
+{/**Detail**/}
+...
+return (
+	<ul>
+  	<li>ID:xxx</li>
+    <li>TITLE:xx</li>
+    <li>CONTENT:xxx</li>
+  </ul>
+)
+...
+```
+
+- 方法一 params参数
+
+  ```react
+  {/** 1. 向路由组件传递params参数 **/}
+  <link to={`/home/message/detail/${msgObj.id}/${msgObj.title}`}>{msgObj.title}</link>
+  {/** 2. 接收参数 **/}
+  <Route path='/home/message/detail/:id/:title' component={Detail} />
+  
+  /***Detail***/
+  {/** 3. this.props.match.params中接收 **/}
+  const {id,title} = this.props.match.params
+  const findContent = DetailData.find(detail=>{
+    return detail.id === id
+  })
+  ```
+
+- 方法二 search参数
+
+  ```react
+  {/** 1. 向路由组件传递search参数 **/}
+  <link to={`/home/message/detail/?id=${msgObj.id}&title=${msgObj.title}`}>{msgObj.title}</link>
+  {/** 2. 正常注册路由 **/}
+  <Route path='/home/message/detail' component={Detail} />
+  
+  /***Detail***/
+  {/**react默认引入**/}
+  {/**key=value&key=value urlencoded**/}
+  import qs from 'queryString'
+  {/** 3. this.props.location.search中接收 注意是字符串形式 **/}
+  const {search} = this.props.location
+  {/** slice 为了去除? **/}
+  const {id,title} = qs.parse(search.slice(1))
+  const findContent = DetailData.find(detail=>{
+    return detail.id === id
+  })
+  ```
+
+- 方法三 state参数
+
+  
